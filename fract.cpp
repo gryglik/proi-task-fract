@@ -1,13 +1,13 @@
 #include "fract.h"
-
+#include <cmath>
 
 fract::fract(int num, unsigned int denom)
     : numerator(num), denominator(denom)
 {
-    unsigned int divisor = gcd(numerator, denominator);
+    unsigned int divisor = gcd(abs(numerator), denominator);
     if (divisor > 1)
     {
-        numerator /= divisor;
+        numerator /= int(divisor);
         denominator /= divisor;
     }
 }
@@ -20,6 +20,20 @@ int fract::num() const
 unsigned int fract::denom() const
 {
     return denominator;
+}
+
+bool fract::equal(const fract& right) const
+{
+    if ((right.num() == numerator) && (right.denom() == denominator))
+        return true;
+    return false;
+}
+
+fract fract::neg() const
+{
+    if(numerator == 0)
+        return fract();
+    return fract(-numerator, denominator);
 }
 
 void fract::print(std::ostream& os) const
