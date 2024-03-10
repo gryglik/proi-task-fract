@@ -25,3 +25,5 @@ public:
 };
 
 unsigned int gcd(unsigned int a, unsigned int b);
+
+unsigned int lcm(unsigned int a, unsigned int b);

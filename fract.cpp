@@ -24,16 +24,25 @@ unsigned int fract::denom() const
 
 bool fract::equal(const fract& right) const
 {
-    if ((right.num() == numerator) && (right.denom() == denominator))
-        return true;
-    return false;
+    return right.num() == num()
+        && right.denom() == denom();
 }
 
 fract fract::neg() const
 {
     if(numerator == 0)
         return fract();
-    return fract(-numerator, denominator);
+    return fract(-num(), denom());
+}
+
+void fract::add(const fract& right)
+{
+    unsigned int new_denominator = lcm(denom(), right.denom());
+    int new_numerator = (num()*int(new_denominator))/int(denom())
+        + (right.num()*new_denominator)/right.denom();
+    unsigned int divisor = gcd(new_denominator, new_numerator);
+    numerator = new_numerator / int(divisor);
+    denominator = new_denominator / divisor;
 }
 
 void fract::print(std::ostream& os) const
@@ -53,4 +62,9 @@ unsigned int gcd(unsigned int a, unsigned int b)
             b = b % a;
     }
     return std::max(a, b);
+}
+
+unsigned int lcm(unsigned int a, unsigned int b)
+{
+    return a*b/gcd(a,b);
 }
