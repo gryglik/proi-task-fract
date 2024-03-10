@@ -45,6 +45,13 @@ void fract::add(const fract& right)
     denominator = new_denominator / divisor;
 }
 
+fract fract::sum(const fract& right) const
+{
+    fract f(num(), denom());
+    f.add(right);
+    return f;
+}
+
 void fract::print(std::ostream& os) const
 {
     os << num();

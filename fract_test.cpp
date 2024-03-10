@@ -85,6 +85,13 @@ int main()
             std::cerr << "Error while adding fract(1, 12) to fract(-1, 12)";
     }
 
+    {
+        fract f(-3, 30);
+        fract f_sum = f.sum(fract(4, 15));
+        if (f_sum.num() != 1 || f_sum.denom() != 6)
+            std::cerr << "Error while summing fract(-3, 30) and dract(4, 15)";
+    }
+
     std::cout << std::endl;
     return 0;
 }
