@@ -4,6 +4,9 @@ class fract
 {
     int numerator = 0;
     unsigned int denominator = 1;
+
+    void set_fract(int new_num, unsigned int new_denom);
+    
 public:
     fract() = default;
     fract(int num, unsigned int denom);

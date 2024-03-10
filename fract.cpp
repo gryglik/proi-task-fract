@@ -1,15 +1,17 @@
 #include "fract.h"
 #include <cmath>
 
+void fract::set_fract(int new_num, unsigned int new_denom)
+{
+    unsigned int divisor = gcd(abs(new_num), new_denom);
+    numerator = new_num / int(divisor);
+    denominator = new_denom / divisor;
+}
+
 fract::fract(int num, unsigned int denom)
     : numerator(num), denominator(denom)
 {
-    unsigned int divisor = gcd(abs(numerator), denominator);
-    if (divisor > 1)
-    {
-        numerator /= int(divisor);
-        denominator /= divisor;
-    }
+    set_fract(num, denom);
 }
 
 int fract::num() const
@@ -30,8 +32,6 @@ bool fract::equal(const fract& right) const
 
 fract fract::neg() const
 {
-    if(numerator == 0)
-        return fract();
     return fract(-num(), denom());
 }
 
@@ -40,15 +40,25 @@ void fract::add(const fract& right)
     unsigned int new_denominator = lcm(denom(), right.denom());
     int new_numerator = (num()*int(new_denominator))/int(denom())
         + (right.num()*new_denominator)/right.denom();
-    unsigned int divisor = gcd(new_denominator, new_numerator);
-    numerator = new_numerator / int(divisor);
-    denominator = new_denominator / divisor;
+    set_fract(new_numerator, new_denominator);
 }
 
 fract fract::sum(const fract& right) const
 {
     fract f(num(), denom());
     f.add(right);
+    return f;
+}
+
+void fract::mul(const fract& right)
+{
+    set_fract(num() * right.num(), denom() * right.denom());
+}
+
+fract fract::prod(const fract& right) const
+{
+    fract f(num(), denom());
+    f.mul(right);
     return f;
 }
 
