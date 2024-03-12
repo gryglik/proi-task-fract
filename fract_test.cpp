@@ -90,7 +90,7 @@ int main()
 
     {
         fract f(-1, 12);
-        f.add(fract(1, 12));
+        f.add(fract(2, 24));
         if (f.num() != 0 || f.denom() != 1)
             std::cerr << "Error while adding fract(1, 12) to fract(-1, 12)\n";
     }
@@ -143,7 +143,5 @@ int main()
         if (f_prod.num() != -1 || f_prod.denom() != 6)
             std::cerr << "Error in product of fract(-3, 12) and fract(2, 3)\n";
     }
-
-    std::cout << std::endl;
     return 0;
 }
